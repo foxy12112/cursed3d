@@ -6,12 +6,11 @@
 /*   By: mbelhaj- <mbelhaj-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 03:01:26 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/03/22 09:25:15 by mbelhaj-         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:11:23 by mbelhaj-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 int	ft_textures(t_map *map, char **textures, int *i, int *count)
 {
@@ -22,19 +21,7 @@ int	ft_textures(t_map *map, char **textures, int *i, int *count)
 	return (1);
 }
 
-int	check_char(t_map *map, char c)
-{
-	if (c == '0' || c == '1' || c == ' ')
-		return (1);
-	else if  (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-	{
-		map->count_p++;
-		return (1);
-	}
-	return (0);
-}
-
-int		ft_isspace(char c)
+int	ft_isspace(char c)
 {
 	if (c == ' ' || (c >= 9 && c <= 13))
 		return (1);
@@ -42,59 +29,31 @@ int		ft_isspace(char c)
 		return (0);
 }
 
-int		check_all_sides(char **strs, int j)
+int	check_char(t_map *map, char c)
 {
-	if (ft_isspace(strs[-1][j - 1]) || !strs[-1][j - 1])
-		return (0);
-	if (ft_isspace(strs[-1][j]) || !strs[-1][j])
-		return (0);
-	if (ft_isspace(strs[-1][j + 1]) || !strs[-1][j + 1])
-		return (0);
-	if (ft_isspace(strs[0][j - 1]) || !strs[0][j - 1])
-		return (0);
-	if (ft_isspace(strs[0][j + 1]) || !strs[0][j + 1])
-		return (0);
-	if (ft_isspace(strs[1][j - 1]) || !strs[1][j - 1])
-		return (0);
-	if (ft_isspace(strs[1][j]) || !strs[1][j])
-		return (0);
-	if (ft_isspace(strs[1][j + 1]) || !strs[1][j + 1])
-		return (0);
-	return (1);
-}
-
-int		checkmapclosed(char **strs)
-{
-	int j;
-
-	j = 0;
-	while (strs[0][j])
+	if (ft_isspace(c) || c == '0' || c == '1')
+		return (1);
+	else if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
-		if (ft_strchr(MAP_INSIDE, strs[0][j]))
-		{
-			if (!check_all_sides(strs, j))
-				return (0);
-		}
-		j++;
+		map->count_p++;
+		return (1);
 	}
-	return (1);
+	return (0);
 }
 
 
-
-
-int	valid_components(t_map *map, int j)
+int	valid_components(t_map *map)
 {
 	int	y;
 	int	x;
 
-	y = j;
-	while (map->map_splited[y])
+	y = 0;
+	while (map->duplicated_map[y])
 	{
 		x = 0;
-		while (map->map_splited[y][x])
+		while (map->duplicated_map[y][x])
 		{
-			if (!check_char(map,map->map_splited[y][x]))
+			if (!check_char(map, map->duplicated_map[y][x]))
 				return (0);
 			x++;
 		}
@@ -108,7 +67,7 @@ char	**copy_map(char **input_array, int size, int *ik)
 	int		j;
 	int		i;
 	char	**duplicate_array;
-	
+
 	duplicate_array = (char **)malloc((size + 1) * sizeof(char *));
 	if (!duplicate_array)
 		return (NULL);
@@ -133,15 +92,87 @@ char	**copy_map(char **input_array, int size, int *ik)
 	return (duplicate_array);
 }
 
-int ft_size(t_map *map, int *i)
+int	ft_size(t_map *map, int *i)
 {
-	int j = (*i);
-	while (map->map_splited[j] != (void *) 0)
+	int	j;
+
+	j = (*i);
+	while (map->map_splited[j] != (void *)0)
 	{
 		j++;
 	}
-	return(j - (*i));
+	return (j - (*i));
 }
+
+int ft_check_wall(char *str)
+{
+	int i =0;
+	while (str[i])
+	{
+		if (ft_isspace(str[i]))
+			i++;
+		else if (str[i] != '1')
+			return(0);
+		i++;
+	}
+	return(1);
+}
+
+
+int ft_empty_line(char *str)
+{
+	int i  = 0;
+	while (str[i])
+	{
+		if (!ft_isspace(str[i]))
+			return(1);		
+		i++;
+	}
+	return(0);
+}
+
+int check_edges(char *str)
+{
+	int i = 0;
+	int len = ft_strlen(str);
+	
+	while(ft_isspace(str[i]))
+		i++;
+	if (str[i] != '1' || str[len - 2] != '1')
+		return(0);
+	return(1);
+}
+
+int ft_valid_wall(char **str)
+{
+	int i = 0;
+	// int j = 0;
+	while (str[i])
+	{
+		while (!ft_empty_line(str[i]))
+			i++;
+		if (!ft_check_wall(str[i]))
+			return(0);
+		while (str[i] != NULL && ft_empty_line(str[i]))
+			i++;
+		if (!ft_check_wall(str[i - 1]))
+			return(0);
+
+	}
+	i = 0;
+	while (str[i])
+	{
+		
+	while (!ft_empty_line(str[i]))
+		i++;
+	if (!check_edges(str[i]))
+		return(0);
+	i++;
+	}
+	return(1);	
+}
+// printf("\n%s\n",str[i]);
+
 int	ft_check(t_map *map, int *i, int *count)
 {
 	int	j;
@@ -154,17 +185,26 @@ int	ft_check(t_map *map, int *i, int *count)
 			return (0);
 		}
 	}
-	j = (*i);
-	if (valid_components(map, j) && map->count_p == 1)
+	j = ft_size(map, i);
+	map->duplicated_map = (char **)malloc((j + 1) * sizeof(char *));
+    if (map->duplicated_map == NULL) 
+	{
+        printf("Memory allocation failed for duplicated_map\n");
+    	return 0;
+    }
+	map->duplicated_map = copy_map(map->map_splited, j, i);
+	if (valid_components(map) && map->count_p == 1)
 	{
 		printf("\n Valid \n");
 	}
 	else
 	{
-		printf("\nNOT Valid ---- \n");
+		printf("\nNOT Valid ---- ft_check \n");
 	}
-	j = ft_size(map,i);
-	map->duplicated_map = copy_map(map->map_splited, j, i);
+	if (!ft_valid_wall(map->duplicated_map))
+	{
+		printf("\n invalid map ft_valid_map \n");
+	}	
 	
 	return (1);
 }
@@ -174,6 +214,7 @@ int	ft_parse_map(t_map *map)
 	int	i;
 	int	count;
 	int	count_e;
+
 	map->count_p = 0;
 	count_e = 0;
 	i = 0;
@@ -191,23 +232,46 @@ int	ft_parse_map(t_map *map)
 	// printf("\n text 6 : %s \n", map->text_c);
 	return (1);
 }
-void print_map(char **map_splited) {
-    int i = 0;
-    while (map_splited[i] != NULL) {
-        int j = 0;
-        while (map_splited[i][j] != '\0') {
-            printf("%c", map_splited[i][j]);
-            j++;
-        }
-        printf("\n");
-        i++;
-    }
+void	print_map(char **map_splited)
+{
+	int	i;
+
+	i = 0;
+	while (map_splited[i] != NULL)
+	{
+		printf("%s", map_splited[i]);
+		i++;
+	}
 }
 
+int	ft_get_map(t_map *map)
+{
+	int		i;
+	char	*line;
+
+	i = 0;
+	map->map_splited = (char **)malloc(sizeof(char *) * 2);
+	while ((line = get_next_line(map->fd)) != NULL)
+	{
+		map->map_splited[i] = line;
+		i++;
+		map->map_splited = (char **)realloc(map->map_splited, sizeof(char *) * (i + 1));
+		if (!map->map_splited)
+		{
+			perror("Memory allocation error");
+			clean_up(map);
+			exit(EXIT_FAILURE);
+		}
+	}
+	map->map_splited[i] = NULL;
+	return (1);
+}
 int	main(int argc, char **argv)
 {
 	t_map	*map;
+	int		i;
 
+	i = 0;
 	map = (struct s_map *)malloc(sizeof(struct s_map));
 	if (!map)
 	{
@@ -223,9 +287,14 @@ int	main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 	ft_open_map(argc, argv, map);
-	map->map_splited = ft_split_map(map->fd, map);
-	print_map(map->map_splited);
+	ft_get_map(map);
+	// i = 0;
+	// while (map->map_splited[i] != NULL)
+	// {
+	// 	printf("%s", map->map_splited[i]);
+	// 	i++;
+	// }
 	ft_parse_map(map);
-	print_map(map->duplicated_map);
+	// print_map(map->duplicated_map);
 	return (0);
 }

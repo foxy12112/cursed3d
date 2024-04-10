@@ -6,7 +6,7 @@
 /*   By: mbelhaj- <mbelhaj-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 03:01:28 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/03/22 08:46:33 by mbelhaj-         ###   ########.fr       */
+/*   Updated: 2024/04/05 23:24:35 by mbelhaj-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@
 # include <string.h>
 # include <stdbool.h>
 
-# define WIDTH 512
-# define HEIGHT 512
+# define MAP_CHARS "012NSEW"
 
 typedef struct s_show
 {
@@ -64,6 +63,7 @@ typedef struct s_map
 	char 		*text_f;
 	char 		*text_c;
 	int			moves;
+	char  **tt;
 }				t_map;
 
 void	clean_up(t_map *map);
