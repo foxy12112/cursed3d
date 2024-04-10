@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelhaj- <mbelhaj-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rallouan <rallouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 03:01:28 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/05 23:24:35 by mbelhaj-         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:46:25 by rallouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@
 # include <stdbool.h>
 
 # define MAP_CHARS "012NSEW"
+
+typedef struct s_mem_block
+{
+	void				*block_pointer;
+	struct s_mem_block	*next;
+}						t_mem_block;
 
 typedef struct s_show
 {
@@ -56,14 +62,14 @@ typedef struct s_map
 	t_show		*show;
 	mlx_t		*mlx;
 	t_player	*player;
-	char 		*text_no;
-	char 		*text_so;
-	char 		*text_we;
-	char 		*text_ea;
-	char 		*text_f;
-	char 		*text_c;
+	char		*text_no;
+	char		*text_so;
+	char		*text_we;
+	char		*text_ea;
+	char		*text_f;
+	char		*text_c;
 	int			moves;
-	char  **tt;
+	char		**tt;
 }				t_map;
 
 void	clean_up(t_map *map);
@@ -73,14 +79,14 @@ char	*ft_split_map_while(int fd, char *line, t_map *map, char *temp);
 char	**ft_split_map(int fd, t_map *map);
 
 
-int ft_get_north(t_map *map , char *str);
-int ft_get_south(t_map *map , char *str);
-int ft_get_west(t_map *map , char *str);
-int ft_get_east(t_map *map , char *str);
-int	get_wall(t_map *map, char **str, int *i, int *count);
+int		ft_get_north(t_map *map, char *str);
+int		ft_get_south(t_map *map, char *str);
+int		ft_get_west(t_map *map, char *str);
+int		ft_get_east(t_map *map, char *str);
+int		get_wall(t_map *map, char **str, int *i, int *count);
 
-int	ft_get_floor(t_map *map, char *str);
-int	ft_get_ceiling(t_map *map, char *str);
-int	get_fc(t_map *map, char **str, int *i, int *count);
+int		ft_get_floor(t_map *map, char *str);
+int		ft_get_ceiling(t_map *map, char *str);
+int		get_fc(t_map *map, char **str, int *i, int *count);
 
 #endif

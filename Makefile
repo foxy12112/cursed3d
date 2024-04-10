@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbelhaj- <mbelhaj-@student.42.fr>          +#+  +:+       +#+         #
+#    By: rallouan <rallouan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/15 03:01:31 by mbelhaj-          #+#    #+#              #
-#    Updated: 2024/03/22 07:43:14 by mbelhaj-         ###   ########.fr        #
+#    Updated: 2024/04/10 19:49:14 by rallouan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIBFT_LIB = $(LIBFT)/libft.a
 
 LIBS = -L$(MLX_PATH) -lmlx42 -L/Users/$(USER)/.brew/opt/glfw/lib -lglfw -lm -ldl -pthread
 
-SRCS = main.c ./parse/ft_open_map.c ./parse/ft_get_text.c ./parse/ft_get_fc.c
+SRCS = main.c ./parse/ft_open_map.c ./parse/ft_get_text.c ./parse/ft_get_fc.c ./garbage_collector/garbage_collector.c
 
 
 OBJS = $(SRCS:.c=.o)

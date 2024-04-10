@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelhaj- <mbelhaj-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rallouan <rallouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 03:01:26 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/10 19:11:23 by mbelhaj-         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:38:23 by rallouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int ft_empty_line(char *str)
 	while (str[i])
 	{
 		if (!ft_isspace(str[i]))
-			return(1);		
+			return(1);
 		i++;
 	}
 	return(0);
