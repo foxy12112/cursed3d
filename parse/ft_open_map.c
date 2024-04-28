@@ -6,7 +6,7 @@
 /*   By: mbelhaj- <mbelhaj-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 08:23:06 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/04 16:25:33 by mbelhaj-         ###   ########.fr       */
+/*   Updated: 2024/04/27 20:38:00 by mbelhaj-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	clean_up(t_map *map)
 {
-	free(map->player);
-	free(map->show);
+	// free(map->player);
+	// free(map->show);
 	free(map);
 }
 
@@ -47,3 +47,59 @@ void	ft_open_map(int argc, char *argv[], t_map *map)
 	}
 }
 
+
+char	**copy_map(char **input_array, int size, int *ik)
+{
+	int		j;
+	int		i;
+	char	**duplicate_array;
+
+	duplicate_array = (char **)malloc((size + 1) * sizeof(char *));
+	if (!duplicate_array)
+		return (NULL);
+	i = 0;
+	while (!ft_strncmp(input_array[*ik] ,"\n", 2) || !ft_empty_line(input_array[*ik]))
+		(*ik)++;
+	while (input_array[(*ik)])
+	{
+		
+		duplicate_array[i] = ft_strdup(input_array[(*ik)]);
+		if (!duplicate_array[i])
+		{
+			j = 0;
+			while (j < i)
+			{
+				free(duplicate_array[j]);
+				j++;
+			}
+			return (free(duplicate_array), NULL);
+		}
+		i++;
+		(*ik)++;
+	}
+	duplicate_array[size] = NULL;
+	return (duplicate_array);
+}
+
+int	ft_get_map(t_map *map)
+{
+	int		i;
+	char	*line;
+
+	i = 0;
+	map->map_splited = (char **)malloc(sizeof(char *) * 2);
+	while ((line = get_next_line(map->fd)) != NULL)
+	{
+		map->map_splited[i] = line;
+		i++;
+		map->map_splited = (char **)realloc(map->map_splited, sizeof(char *) * (i + 1));
+		if (!map->map_splited)
+		{
+			perror("Memory allocation error");
+			clean_up(map);
+			exit(EXIT_FAILURE);
+		}
+	}
+	map->map_splited[i] = NULL;
+	return (1);
+}
