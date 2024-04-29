@@ -6,7 +6,7 @@
 /*   By: mbelhaj- <mbelhaj-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 00:53:38 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/27 17:56:23 by mbelhaj-         ###   ########.fr       */
+/*   Updated: 2024/04/29 19:45:07 by mbelhaj-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,13 @@ int	ft_valid_wall(char **str)
 	{
 		while (!ft_empty_line(str[i]))
 			i++;
-	// printf("Error 1 :\n");
 		if (!ft_check_wall(str[i]))
 			return (0);
 		while (str[i] != NULL && ft_empty_line(str[i]))
 			i++;
+		printf("\n|%s|\n", str[i - 1]);
+		
+		printf("\n i= %d\n", i - 1);
 		if (!ft_check_wall(str[i - 1]))
 			return (0);
 	}
@@ -98,7 +100,7 @@ int	ft_check(t_map *map, int *i, int *count)
 {
 	int	j;
 
-	while (map->map_splited[(*i)] && (*count) < 5)
+	while (map->map_splited[(*i)] && (*count) < 6)
 	{
 		if (!ft_textures(map, map->map_splited, i, count))
 		{
@@ -115,10 +117,10 @@ int	ft_check(t_map *map, int *i, int *count)
 	}
 	map->duplicated_map = copy_map(map->map_splited, j, i);
 	if (valid_components(map) && map->count_p == 1)
-		printf("\n Valid \n");
+		printf("\n okay");
 	else
-		printf("\nNOT Valid ---- ft_check \n");
+		return(0); // free
 	if (!ft_valid_wall(map->duplicated_map))
-		printf("\n invalid map ft_valid_wall \n");
+		return(0); //free
 	return (1);
 }

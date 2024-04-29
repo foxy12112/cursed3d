@@ -6,7 +6,7 @@
 /*   By: mbelhaj- <mbelhaj-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 00:28:41 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/27 14:37:00 by mbelhaj-         ###   ########.fr       */
+/*   Updated: 2024/04/29 19:43:59 by mbelhaj-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_textures(t_map *map, char **textures, int *i, int *count)
 int ft_check_wall(char *str)
 {
 	int i =0;
-	while (str[i])
+	while (str[i] )
 	{
 		if (ft_isspace(str[i]))
 			i++;
