@@ -6,50 +6,29 @@
 /*   By: mbelhaj- <mbelhaj-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 03:01:26 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/27 20:17:39 by mbelhaj-         ###   ########.fr       */
+/*   Updated: 2024/04/29 18:37:39 by mbelhaj-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	player_position(t_map *map)
+int	ft_game(t_map *map)
 {
-	int i = 0;
-	int j ;
-	while (map->duplicated_map[i])
-	{
-		j = 0;
-		while (map->duplicated_map[i][j])
-		{
-			if (map->duplicated_map[i][j] == 'N')
-			{
-				map->x = i;
-				map->y = j;
-				return (0);
-			}
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
+	t_mlx	mlx;
 
-int	get_cols_rows(t_map *map)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map->duplicated_map[i])
-	{
-		j = 0;
-		while (map->duplicated_map[i][j])
-			j++;
-		if (j > map->colums)
-			map->colums = j;
-		i++;
-	}
-	map->rows = i;
+	mlx.ply = (t_player *)ft_calloc(sizeof(t_player), 1);
+	mlx.ray = (t_ray *)ft_calloc(sizeof(t_ray), 1);
+	mlx.tex = (t_tex *)ft_calloc(sizeof(t_tex), 1);
+	mlx.map = map;
+	mlx.mlx_p = mlx_init(1900, 1000, "cub3D", false);
+	if (!mlx.mlx_p)
+		return (0); // free
+	if (!load_img(mlx.tex, map))
+		return (0);
+	get_angle(&mlx);
+	mlx_key_hook(mlx.mlx_p, &ft_key, &mlx);
+	mlx_loop_hook(mlx.mlx_p, &drow_map_pixel, &mlx);
+	mlx_loop(mlx.mlx_p);
 	return (1);
 }
 
@@ -68,15 +47,9 @@ int	ft_parse_map(t_map *map)
 		printf("\n III =  %i \n", i);
 		return (0);
 	}
-	
 	player_position(map);
 	get_cols_rows(map);
-	// printf("\n text 1 : %d \n", map->rows);
-	// printf("\n text 2 : %d \n", map->colums);
-	// printf("\n text 3 : %s \n", map->text_we);
-	// printf("\n text 4 : %s \n", map->text_ea);
-	// printf("\n text 5 : %s \n", map->text_f);
-	// printf("\n text 6 : %s \n", map->text_c);
+	ft_game(map);
 	return (1);
 }
 void	print_map(char **map_splited)
@@ -103,15 +76,8 @@ int	main(int argc, char **argv)
 		perror("Memory allocation error");
 		exit(EXIT_FAILURE);
 	}
-
 	ft_open_map(argc, argv, map);
 	ft_get_map(map);
-	// i = 0;
-	// while (map->map_splited[i] != NULL)
-	// {
-	// 	printf("%s", map->map_splited[i]);
-	// 	i++;
-	// }
 	ft_parse_map(map);
 	clean_up(map);
 	return (0);

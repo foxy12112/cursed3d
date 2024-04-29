@@ -6,7 +6,7 @@
 #    By: mbelhaj- <mbelhaj-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/15 03:01:31 by mbelhaj-          #+#    #+#              #
-#    Updated: 2024/04/27 20:38:23 by mbelhaj-         ###   ########.fr        #
+#    Updated: 2024/04/29 16:30:22 by mbelhaj-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,13 @@ SRCS = main.c ./parse/ft_open_map.c ./parse/ft_get_text.c ./parse/ft_get_fc.c \
 	./parse/ft_check.c\
 	./parse/ft_check2.c\
 	./parse/ft_utils.c\
-
+	./raycasting/get_png.c\
+	./raycasting/player_position.c\
+	./raycasting/keys.c\
+	./raycasting/raycast.c\
+	./raycasting/raycasting2.c\
+	./raycasting/raycasting3.c\
+	./raycasting/utils.c\
 
 OBJS = $(SRCS:.c=.o)
 
