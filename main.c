@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelhaj- <mbelhaj-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rallouan <rallouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 03:01:26 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/29 18:37:39 by mbelhaj-         ###   ########.fr       */
+/*   Updated: 2024/04/29 22:19:05 by rallouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@ int	ft_game(t_map *map)
 	mlx.map = map;
 	mlx.mlx_p = mlx_init(1900, 1000, "cub3D", false);
 	if (!mlx.mlx_p)
-		return (0); // free
+		ft_exit(&mlx);
 	if (!load_img(mlx.tex, map))
-		return (0);
+		ft_exit(&mlx);
 	get_angle(&mlx);
 	mlx_key_hook(mlx.mlx_p, &ft_key, &mlx);
-	mlx_loop_hook(mlx.mlx_p, &drow_map_pixel, &mlx);
+	mlx_loop_hook(mlx.mlx_p, &draw_map_pixel, &mlx);
 	mlx_loop(mlx.mlx_p);
+	ft_exit(&mlx);
 	return (1);
 }
 
@@ -43,15 +44,13 @@ int	ft_parse_map(t_map *map)
 	i = 0;
 	count = 0;
 	if (!ft_check(map, &i, &count_e))
-	{
-		printf("\n III =  %i \n", i);
-		return (0);
-	}
+		return (clean_up(map), 0);
 	player_position(map);
 	get_cols_rows(map);
 	ft_game(map);
 	return (1);
 }
+
 void	print_map(char **map_splited)
 {
 	int	i;
@@ -69,16 +68,20 @@ int	main(int argc, char **argv)
 	t_map	*map;
 	int		i;
 
-	i = 0;
-	map = (struct s_map *)malloc(sizeof(struct s_map));
-	if (!map)
+	if (argc == 2)
 	{
-		perror("Memory allocation error");
-		exit(EXIT_FAILURE);
+		i = 0;
+		map = (struct s_map *)malloc(sizeof(struct s_map));
+		if (!map)
+		{
+			perror("Memory allocation error");
+			exit(EXIT_FAILURE);
+		}
+		ft_open_map(argc, argv, map);
+		ft_get_map(map);
+		ft_parse_map(map);
 	}
-	ft_open_map(argc, argv, map);
-	ft_get_map(map);
-	ft_parse_map(map);
-	clean_up(map);
+	else
+		printf("Error\n");
 	return (0);
 }

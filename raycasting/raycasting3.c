@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelhaj- <mbelhaj-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rallouan <rallouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 16:17:26 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/29 16:18:09 by mbelhaj-         ###   ########.fr       */
+/*   Updated: 2024/04/29 20:53:40 by rallouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int	wall_hit(float x, float y, t_mlx *mlx)
 	y_m = floor (y / 32);
 	if ((y_m >= mlx->map->rows || x_m >= mlx->map->colums))
 		return (0);
-	if (mlx->map->duplicated_map[y_m] && x_m <= (int)ft_strlen(mlx->map->duplicated_map[y_m]))
+	if (mlx->map->duplicated_map[y_m]
+		&& x_m <= (int)ft_strlen(mlx->map->duplicated_map[y_m]))
 		if (mlx->map->duplicated_map[y_m][x_m] == '1')
 			return (0);
 	return (1);

@@ -3,35 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   player_position.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelhaj- <mbelhaj-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rallouan <rallouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:19:22 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/29 16:15:03 by mbelhaj-         ###   ########.fr       */
+/*   Updated: 2024/04/29 21:36:12 by rallouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	player_position(t_map *map)
+void	player_position(t_map *map)
 {
-	int i = 0;
-	int j ;
+	int	i;
+	int	j;
+
+	i = 0;
 	while (map->duplicated_map[i])
 	{
 		j = 0;
 		while (map->duplicated_map[i][j])
 		{
-			if (map->duplicated_map[i][j] == 'N')
+			if (map->duplicated_map[i][j] == 'N'
+				|| map->duplicated_map[i][j] == 'S'
+				|| map->duplicated_map[i][j] == 'W'
+				|| map->duplicated_map[i][j] == 'E')
 			{
 				map->x = j;
 				map->y = i;
-				return (0);
+				return ;
 			}
 			j++;
 		}
 		i++;
 	}
-	return (0);
 }
 
 void	get_angle(t_mlx *mlx)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelhaj- <mbelhaj-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rallouan <rallouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:20:49 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/29 19:09:56 by mbelhaj-         ###   ########.fr       */
+/*   Updated: 2024/04/29 21:18:42 by rallouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_key(mlx_key_data_t keydata, void *ml)
 	if (keydata.key == MLX_KEY_ESCAPE && (keydata.action == MLX_PRESS \
 	|| keydata.action == MLX_REPEAT))
 	{
-		return; // free + close window
+		ft_exit(mlx);
 	}
 	else if (keydata.key == MLX_KEY_A && (keydata.action == MLX_PRESS))
 		mlx->ply->l_r = -1;

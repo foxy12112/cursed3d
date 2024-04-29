@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelhaj- <mbelhaj-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rallouan <rallouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 00:29:19 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/27 17:32:59 by mbelhaj-         ###   ########.fr       */
+/*   Updated: 2024/04/29 22:17:27 by rallouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	check_char(t_map *map, char c)
 	}
 	return (0);
 }
+
 int	ft_size(t_map *map, int *i)
 {
 	int	j;
@@ -57,3 +58,24 @@ int	ft_empty_line(char *str)
 	return (0);
 }
 
+int	ft_no_so(t_map *map, char **str, int *i, int *count)
+{
+	int	index;
+
+	index = 0;
+	if (str[(*i)][0] == 'N' && str[(*i)][1] == 'O')
+	{
+		ft_get_north(map, str[(*i)]);
+		(*count)++;
+		(*i)++;
+		index = 1;
+	}
+	if (str[(*i)][0] == 'S' && str[(*i)][1] == 'O')
+	{
+		ft_get_south(map, str[(*i)]);
+		(*count)++;
+		(*i)++;
+		index = 1;
+	}
+	return (index);
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_png.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelhaj- <mbelhaj-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rallouan <rallouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:15:17 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/29 16:14:12 by mbelhaj-         ###   ########.fr       */
+/*   Updated: 2024/04/29 20:50:01 by rallouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*get_png(char *str)
 	i = 0;
 	tmp = (char *)malloc(ft_strlen(str) + 1);
 	if (tmp == NULL)
-		return (NULL);
+		return (printf("Error\n"), NULL);
 	while (str[i] != '\n' && str[i] != '\0')
 	{
 		tmp[i] = str[i];

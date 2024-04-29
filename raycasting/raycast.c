@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelhaj- <mbelhaj-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rallouan <rallouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:15:22 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/29 16:11:15 by mbelhaj-         ###   ########.fr       */
+/*   Updated: 2024/04/29 20:53:02 by rallouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	cast_rays(t_mlx *mlx)
 	}
 }
 
-void	drow_map_pixel(void *mlxl)
+void	draw_map_pixel(void *mlxl)
 {
 	t_mlx	*mlx;
 

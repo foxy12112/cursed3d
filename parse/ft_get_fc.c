@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_fc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelhaj- <mbelhaj-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rallouan <rallouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 07:40:38 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/29 19:23:51 by mbelhaj-         ###   ########.fr       */
+/*   Updated: 2024/04/29 21:56:15 by rallouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@ int	ft_get_floor(t_map *map, char *str)
 	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 		i++;
 	map->text_f = ft_split(&str[i], ',');
-	// map->text_f = ft_strdup(&str[i]);
 	if (!map->text_f)
-		return (0); // error and free
+		return (clean_up(map), 0);
 	return (1);
 }
 
@@ -34,9 +33,8 @@ int	ft_get_ceiling(t_map *map, char *str)
 	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 		i++;
 	map->text_c = ft_split(&str[i], ',');
-	// map->text_c = ft_strdup(&str[i]);
 	if (!map->text_c)
-		return (0); // error and free
+		return (clean_up(map), 0);
 	return (1);
 }
 
@@ -85,7 +83,7 @@ int	check_colors(t_map *map)
 
 int	get_fc(t_map *map, char **str, int *i, int *count)
 {
-	while(!ft_strncmp(str[(*i)],"\n",2))
+	while (!ft_strncmp(str[(*i)], "\n", 2))
 		(*i)++;
 	if (str[(*i)][0] == 'F' && str[(*i)][1] == ' ')
 	{

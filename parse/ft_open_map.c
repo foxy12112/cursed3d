@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_open_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelhaj- <mbelhaj-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rallouan <rallouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 08:23:06 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/29 19:28:21 by mbelhaj-         ###   ########.fr       */
+/*   Updated: 2024/04/29 22:22:19 by rallouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-void	clean_up(t_map *map)
-{
-	// free(map->player);
-	// free(map->show);
-	free(map);
-}
 
 int	check_map_extension(char *filename, char *extension)
 {
@@ -47,10 +40,8 @@ void	ft_open_map(int argc, char *argv[], t_map *map)
 	}
 }
 
-
 char	**copy_map(char **input_array, int size, int *ik)
 {
-	int		j;
 	int		i;
 	char	**duplicate_array;
 
@@ -58,25 +49,20 @@ char	**copy_map(char **input_array, int size, int *ik)
 	if (!duplicate_array)
 		return (NULL);
 	i = 0;
-	while (!ft_strncmp(input_array[*ik] ,"\n", 2) || !ft_empty_line(input_array[*ik]))
+	while (!ft_strncmp(input_array[*ik], "\n", 2)
+		|| !ft_empty_line(input_array[*ik]))
 		(*ik)++;
 	while (input_array[(*ik)])
 	{
 		duplicate_array[i] = ft_strdup(input_array[(*ik)]);
 		if (!duplicate_array[i])
 		{
-			j = 0;
-			while (j < i)
-			{
-				free(duplicate_array[j]);
-				j++;
-			}
-			return (free(duplicate_array), NULL);
+			ft_free_all(duplicate_array);
+			return (NULL);
 		}
 		i++;
 		(*ik)++;
 	}
-		printf("ik= %d\n", (*ik));
 	duplicate_array[size] = NULL;
 	return (duplicate_array);
 }
@@ -88,17 +74,20 @@ int	ft_get_map(t_map *map)
 
 	i = 0;
 	map->map_splited = (char **)malloc(sizeof(char *) * 2);
-	while ((line = get_next_line(map->fd)) != NULL)
+	line = get_next_line(map->fd);
+	while (line != NULL)
 	{
 		map->map_splited[i] = line;
 		i++;
-		map->map_splited = (char **)realloc(map->map_splited, sizeof(char *) * (i + 1));
+		map->map_splited = (char **)
+			realloc(map->map_splited, sizeof(char *) * (i + 1));
 		if (!map->map_splited)
 		{
 			perror("Memory allocation error");
 			clean_up(map);
 			exit(EXIT_FAILURE);
 		}
+		line = get_next_line(map->fd);
 	}
 	map->map_splited[i] = NULL;
 	return (1);
