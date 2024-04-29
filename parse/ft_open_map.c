@@ -6,7 +6,7 @@
 /*   By: mbelhaj- <mbelhaj-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 08:23:06 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/27 20:38:00 by mbelhaj-         ###   ########.fr       */
+/*   Updated: 2024/04/29 19:28:21 by mbelhaj-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ char	**copy_map(char **input_array, int size, int *ik)
 		(*ik)++;
 	while (input_array[(*ik)])
 	{
-		
 		duplicate_array[i] = ft_strdup(input_array[(*ik)]);
 		if (!duplicate_array[i])
 		{
@@ -77,6 +76,7 @@ char	**copy_map(char **input_array, int size, int *ik)
 		i++;
 		(*ik)++;
 	}
+		printf("ik= %d\n", (*ik));
 	duplicate_array[size] = NULL;
 	return (duplicate_array);
 }
