@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelhaj- <mbelhaj-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rallouan <rallouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 03:01:28 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/29 16:27:41 by mbelhaj-         ###   ########.fr       */
+/*   Updated: 2024/04/29 22:24:18 by rallouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # include "MLX/MLX42.h"
 # include <math.h>
 # define MAP_CHARS "012NSEW"
-
 
 typedef struct s_player
 {
@@ -61,7 +60,6 @@ typedef struct s_tex
 	mlx_texture_t	*ea;
 }	t_tex;
 
-
 typedef struct s_map
 {
 	int			fd;
@@ -74,14 +72,13 @@ typedef struct s_map
 	char		**duplicated_map;
 	int			rows;
 	int			colums;
-	char 		*text_no;
-	char 		*text_so;
-	char 		*text_we;
-	char 		*text_ea;
-	char 		**text_f;
-	char 		**text_c;
+	char		*text_no;
+	char		*text_so;
+	char		*text_we;
+	char		*text_ea;
+	char		**text_f;
+	char		**text_c;
 	int			moves;
-	char  **tt;
 }				t_map;
 
 typedef struct s_mlx
@@ -92,79 +89,76 @@ typedef struct s_mlx
 	t_ray			*ray;
 	t_player		*ply;
 	t_tex			*tex;
-	// t_txtr			*l_ture;
 	mouse_mode_t	mouse_mode;
 }	t_mlx;
 
+void			clean_up(t_map *map);
+int				check_map_extension(char *filename, char *extension);
+void			ft_open_map(int argc, char *argv[], t_map *map);
+int				ft_get_map(t_map *map);
+char			**copy_map(char **input_array, int size, int *ik);
 
-void	clean_up(t_map *map);
-int		check_map_extension(char *filename, char *extension);
-void	ft_open_map(int argc, char *argv[], t_map *map);
-int		ft_get_map(t_map *map);
-char	**copy_map(char **input_array, int size, int *ik);
+int				ft_get_north(t_map *map, char *str);
+int				ft_get_south(t_map *map, char *str);
+int				ft_get_west(t_map *map, char *str);
+int				ft_get_east(t_map *map, char *str);
+int				get_wall(t_map *map, char **str, int *i, int *count);
 
-int ft_get_north(t_map *map , char *str);
-int ft_get_south(t_map *map , char *str);
-int ft_get_west(t_map *map , char *str);
-int ft_get_east(t_map *map , char *str);
-int	get_wall(t_map *map, char **str, int *i, int *count);
+int				ft_get_floor(t_map *map, char *str);
+int				ft_get_ceiling(t_map *map, char *str);
+int				get_fc(t_map *map, char **str, int *i, int *count);
+int				ft_no_so(t_map *map, char **str, int *i, int *count);
 
-int	ft_get_floor(t_map *map, char *str);
-int	ft_get_ceiling(t_map *map, char *str);
-int	get_fc(t_map *map, char **str, int *i, int *count);
+int				check_closed_map(char **str);
+int				ft_valid_wall(char **str);
+int				ft_check(t_map *map, int *i, int *count);
+int				valid_components(t_map *map);
 
-int	check_closed_map(char **str);
-int	ft_valid_wall(char **str);
-int	ft_check(t_map *map, int *i, int *count);
-int	valid_components(t_map *map);
+int				ft_isspace(char c);
+int				check_char(t_map *map, char c);
+int				ft_empty_line(char *str);
+int				ft_size(t_map *map, int *i);
 
-int	ft_isspace(char c);
-int	check_char(t_map *map, char c);
-int	ft_empty_line(char *str);
-int	ft_size(t_map *map, int *i);
+int				ft_textures(t_map *map, char **textures, int *i, int *count);
+int				ft_check_wall(char *str);
+int				check_edges(char *str);
+int				check_all_sides(char **strs, int j);
 
+int				load_img(t_tex *tex, t_map *map);
+char			*get_png(char *str);
+int				get_rgba(int r, int g, int b, int a);
 
-int	ft_textures(t_map *map, char **textures, int *i, int *count);
-int ft_check_wall(char *str);
-int check_edges(char *str);
-int	check_all_sides(char **strs, int j);
+void			get_angle(t_mlx *mlx);
+void			move_player(t_mlx *mlx, double move_x, double move_y);
+void			rotate_player(t_mlx *mlx, int i);
+void			cub_hook(t_mlx *mlx, double move_x, double move_y);
+void			player_position(t_map *map);
 
+void			ft_reles(mlx_key_data_t keydata, t_mlx *mlx);
+void			ft_key(mlx_key_data_t keydata, void *ml);
 
-int	load_img(t_tex *tex, t_map *map);
-char	*get_png(char *str);
-int	get_rgba(int r, int g, int b, int a);
+void			draw_map_pixel(void *mlxl);
+void			cast_rays(t_mlx *mlx);
+void			render_wall(t_mlx *mlx, int ray);
+float			get_v_inter(t_mlx *mlx, float angl);
+float			get_h_inter(t_mlx *mlx, float angl);
 
-
-void	get_angle(t_mlx *mlx);
-void	move_player(t_mlx *mlx, double move_x, double move_y);
-void	rotate_player(t_mlx *mlx, int i);
-void	cub_hook(t_mlx *mlx, double move_x, double move_y);
-int	player_position(t_map *map);
-
-
-void	ft_reles(mlx_key_data_t keydata, t_mlx *mlx);
-void	ft_key(mlx_key_data_t keydata, void *ml);
-
-void	drow_map_pixel(void *mlxl);
-void	cast_rays(t_mlx *mlx);
-void	render_wall(t_mlx *mlx, int ray);
-float	get_v_inter(t_mlx *mlx, float angl);
-float	get_h_inter(t_mlx *mlx, float angl);
-
-void	draw_floor_ceiling(t_mlx *mlx, int ray, int t_pix, int b_pix);
-double	get_x_o(mlx_texture_t	*texture, t_mlx *mlx);
-float	nor_angle(float angle);
+void			draw_floor_ceiling(t_mlx *mlx, int ray, int t_pix, int b_pix);
+double			get_x_o(mlx_texture_t	*texture, t_mlx *mlx);
+float			nor_angle(float angle);
 mlx_texture_t	*get_texture(t_mlx *mlx, int flag);
-void	draw_wall(t_mlx *mlx, int t_pix, int b_pix, double wall_h);
+void			draw_wall(t_mlx *mlx, int t_pix, int b_pix, double wall_h);
 
-int	unit_circle(float angle, char c);
-int	inter_check(float angle, float *inter, float *step, int is_horizon);
-int	wall_hit(float x, float y, t_mlx *mlx);
+int				unit_circle(float angle, char c);
+int				inter_check(float angle, float *inter,
+					float *step, int is_horizon);
+int				wall_hit(float x, float y, t_mlx *mlx);
 
+int				get_cols_rows(t_map *map);
+void			my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
+int				reverse_bytes(int c);
 
-int	get_cols_rows(t_map *map);
-void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
-int	reverse_bytes(int c);
-
+void			*ft_free_all(char **list);
+void			ft_exit(t_mlx *mlx);
 
 #endif
