@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rallouan <rallouan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbelhaj- <mbelhaj-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 03:01:28 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/29 22:24:18 by rallouan         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:48:17 by mbelhaj-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-// # include "./MLX42/include/MLX42/MLX42.h"
-# define MAP_INSIDE "02NSEW"
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -23,9 +21,10 @@
 # include <fcntl.h>
 # include <string.h>
 # include <stdbool.h>
-# include "MLX/MLX42.h"
+# include "./MLX42/include/MLX42/MLX42.h"
 # include <math.h>
 # define MAP_CHARS "012NSEW"
+# define MAP_INSIDE "02NSEW"
 
 typedef struct s_player
 {
