@@ -6,7 +6,7 @@
 /*   By: rallouan <rallouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:15:27 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/29 20:53:16 by rallouan         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:51:32 by rallouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	draw_floor_ceiling(t_mlx *mlx, int ray, int t_pix, int b_pix)
 	int		c;
 
 	i = b_pix;
-	c = get_rgba(ft_atoi(mlx->map->text_f[0]), ft_atoi(mlx->map->text_f[1]), \
+	c = get_color(ft_atoi(mlx->map->text_f[0]), ft_atoi(mlx->map->text_f[1]), \
 		ft_atoi(mlx->map->text_f[2]), 255);
 	while (i < 1000)
 		my_mlx_pixel_put(mlx, ray, i++, c);
-	c = get_rgba(ft_atoi(mlx->map->text_c[0]), ft_atoi(mlx->map->text_c[1]), \
+	c = get_color(ft_atoi(mlx->map->text_c[0]), ft_atoi(mlx->map->text_c[1]), \
 		ft_atoi(mlx->map->text_c[2]), 255);
 	i = 0;
 	while (i < t_pix)

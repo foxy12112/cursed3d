@@ -6,7 +6,7 @@
 /*   By: rallouan <rallouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:15:22 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/29 20:53:02 by rallouan         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:54:34 by rallouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	draw_map_pixel(void *mlxl)
 	mlx = mlxl;
 	mlx_delete_image(mlx->mlx_p, mlx->img);
 	mlx->img = mlx_new_image(mlx->mlx_p, 1900, 1000);
-	cub_hook(mlx, 0, 0);
+	ft_hook(mlx, 0, 0);
 	cast_rays(mlx);
 	mlx_image_to_window(mlx->mlx_p, mlx->img, 0, 0);
 }

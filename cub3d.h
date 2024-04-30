@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbelhaj- <mbelhaj-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rallouan <rallouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 03:01:28 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/30 17:48:17 by mbelhaj-         ###   ########.fr       */
+/*   Updated: 2024/04/30 18:18:18 by rallouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ typedef struct s_mlx
 }	t_mlx;
 
 void			clean_up(t_map *map);
-int				check_map_extension(char *filename, char *extension);
+int				check_map_extension(char *argv);
 void			ft_open_map(int argc, char *argv[], t_map *map);
 int				ft_get_map(t_map *map);
 char			**copy_map(char **input_array, int size, int *ik);
@@ -125,15 +125,15 @@ int				check_all_sides(char **strs, int j);
 
 int				load_img(t_tex *tex, t_map *map);
 char			*get_png(char *str);
-int				get_rgba(int r, int g, int b, int a);
+int				get_color(int r, int g, int b, int a);
 
 void			get_angle(t_mlx *mlx);
 void			move_player(t_mlx *mlx, double move_x, double move_y);
-void			rotate_player(t_mlx *mlx, int i);
-void			cub_hook(t_mlx *mlx, double move_x, double move_y);
+void			ft_turn_player(t_mlx *mlx, int i);
+void			ft_hook(t_mlx *mlx, double move_x, double move_y);
 void			player_position(t_map *map);
 
-void			ft_reles(mlx_key_data_t keydata, t_mlx *mlx);
+void			ft_key_pressed(mlx_key_data_t keydata, t_mlx *mlx);
 void			ft_key(mlx_key_data_t keydata, void *ml);
 
 void			draw_map_pixel(void *mlxl);

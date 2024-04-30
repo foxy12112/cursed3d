@@ -6,7 +6,7 @@
 /*   By: rallouan <rallouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 03:01:26 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/29 22:19:05 by rallouan         ###   ########.fr       */
+/*   Updated: 2024/04/30 18:25:22 by rallouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,6 @@ int	ft_parse_map(t_map *map)
 	get_cols_rows(map);
 	ft_game(map);
 	return (1);
-}
-
-void	print_map(char **map_splited)
-{
-	int	i;
-
-	i = 0;
-	while (map_splited[i] != NULL)
-	{
-		printf("%s", map_splited[i]);
-		i++;
-	}
 }
 
 int	main(int argc, char **argv)

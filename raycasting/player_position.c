@@ -6,7 +6,7 @@
 /*   By: rallouan <rallouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:19:22 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/29 21:36:12 by rallouan         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:54:34 by rallouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	move_player(t_mlx *mlx, double move_x, double move_y)
 	}
 }
 
-void	rotate_player(t_mlx *mlx, int i)
+void	ft_turn_player(t_mlx *mlx, int i)
 {
 	if (i == 1)
 	{
@@ -92,12 +92,12 @@ void	rotate_player(t_mlx *mlx, int i)
 	}
 }
 
-void	cub_hook(t_mlx *mlx, double move_x, double move_y)
+void	ft_hook(t_mlx *mlx, double move_x, double move_y)
 {
 	if (mlx->ply->rot == 1)
-		rotate_player(mlx, 1);
+		ft_turn_player(mlx, 1);
 	if (mlx->ply->rot == -1)
-		rotate_player(mlx, 0);
+		ft_turn_player(mlx, 0);
 	if (mlx->ply->l_r == 1)
 	{
 		move_x = -sin(mlx->ply->angle) * 4;

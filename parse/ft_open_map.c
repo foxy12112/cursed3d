@@ -6,30 +6,44 @@
 /*   By: rallouan <rallouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 08:23:06 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/29 22:22:19 by rallouan         ###   ########.fr       */
+/*   Updated: 2024/04/30 18:22:33 by rallouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	check_map_extension(char *filename, char *extension)
+int	check_map_extension(char *argv)
 {
-	int	filename_len;
-	int	extension_len;
+	char	**path;
+	char	**name;
+	int		i;
 
-	filename_len = ft_strlen(filename) - 4;
-	extension_len = ft_strlen(extension);
-	if (filename_len < extension_len)
+	path = ft_split(argv, '/');
+	if (!path || !*path)
 		return (0);
-	if (ft_strncmp(filename + (filename_len - extension_len), extension, 4))
+	i = 0;
+	while (path[i])
+		i++;
+	if (path[i - 1][ft_strlen(path[i - 1]) - 1] == '.')
+		return (ft_free_all(path), 0);
+	name = ft_split(path[i - 1], '.');
+	if (!name || !*name)
+		return (ft_free_all(path), 0);
+	ft_free_all(path);
+	if (ft_strlen(name[1]) == 3
+		&& ft_strncmp(name[1], "cub", ft_strlen(name[1])) == 0 && !name[2])
+	{
+		ft_free_all(name);
 		return (1);
+	}
+	ft_free_all(name);
 	return (0);
 }
 
 void	ft_open_map(int argc, char *argv[], t_map *map)
 {
 	map->fd = open(argv[1], O_RDONLY);
-	if (argc != 2 || check_map_extension(argv[1], ".cub") == 1 || map->fd < 0)
+	if (argc != 2 || !check_map_extension(argv[1]) || map->fd < 0)
 	{
 		ft_putstr_fd("ERROR : INVALID FILE", 2);
 		exit(1);

@@ -6,13 +6,13 @@
 /*   By: rallouan <rallouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:15:17 by mbelhaj-          #+#    #+#             */
-/*   Updated: 2024/04/29 20:50:01 by rallouan         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:51:32 by rallouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	get_rgba(int r, int g, int b, int a)
+int	get_color(int r, int g, int b, int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a << 0);
 }
